@@ -7,4 +7,4 @@ Currently, done with basic functionality.
 # TODO
 ## For Production
 1. Make database not be in memory only. This is reset every restart of the service.
-2. Create DTO to pass back and forth to show the infrastructure and policing of the data. This is in the tutorial.
+2. Create DTO to pass back and forth to show the infrastructure and ability to limit data appropriately for results of certain endpoints. This is in the tutorial.
