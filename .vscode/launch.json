@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/BuildMetadata/bin/Debug/net5.0/BuildMetadata.dll",
+            "program": "${workspaceFolder}/src/BuildMetadata.API/bin/Debug/net5.0/BuildMetadata.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/BuildMetadata",
+            "cwd": "${workspaceFolder}/src/BuildMetadata.API",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
