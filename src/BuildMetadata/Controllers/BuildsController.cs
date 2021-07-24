@@ -80,7 +80,8 @@ namespace BuildMetadata.Controllers
             _context.Builds.Add(build);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBuild", new { id = build.ChangelistNumber }, build);
+            // return CreatedAtAction("GetBuild", new { id = build.ChangelistNumber }, build);
+            return CreatedAtAction(nameof(GetBuild), new { id = build.ChangelistNumber }, build);
         }
 
         // DELETE: api/Builds/5
