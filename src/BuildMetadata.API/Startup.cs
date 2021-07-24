@@ -24,7 +24,8 @@ namespace BuildMetadata
         {
 
             services.AddControllers();
-            services.AddDbContext<BuildContext>(opt => opt.UseInMemoryDatabase("Builds"));
+            services.AddDbContext<BuildContext>(x =>
+                x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BuildMetadata", Version = "v1" });
