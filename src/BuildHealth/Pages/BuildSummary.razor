@@ -1,0 +1,81 @@
+﻿@page "/buildsummary"
+
+@using BuildHealth.Data.Interfaces
+@using BuildHealth.Data.Models
+
+@inject IBuildResultDataService _buildResultService;
+
+<head>
+    <style>
+        th, td {
+            text-align: center;
+            border: 1px solid black;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<h3>BuildSummary</h3>
+
+@if (latestAutomation1Result == null || latestAutomation2Result == null || latestAutomation3Result == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<table>
+    <tr>
+        <th></th>
+        <th>Automation 1</th>
+        <th>Automation 2</th>
+        <th>Automation 3</th>
+    </tr>
+    <tr>
+        <td>Changelist Cutoff</td>
+        <td>@latestAutomation1Result.ChangelistCutoff</td>
+        <td>@latestAutomation2Result.ChangelistCutoff</td>
+        <td>@latestAutomation3Result.ChangelistCutoff</td>
+    </tr>
+    <tr>
+        <td>Result</td>
+        <td>@latestAutomation1Result.Result</td>
+        <td>@latestAutomation2Result.Result</td>
+        <td>@latestAutomation3Result.Result</td>
+    </tr>
+    <tr>
+        <td>Completed At</td>
+        <td>@latestAutomation1Result.FinishTime</td>
+        <td>@latestAutomation2Result.FinishTime</td>
+        <td>@latestAutomation3Result.FinishTime</td>
+    </tr>
+    <tr>
+        <td>Time Since Completion</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Processing Time</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+}
+
+
+@code {
+    BuildResultModel latestAutomation1Result;
+    BuildResultModel latestAutomation2Result;
+    BuildResultModel latestAutomation3Result;
+    string timespanFormat = @"hh' hr 'mm' min 'ss' sec'";
+
+    protected override async Task OnInitializedAsync()
+    {
+        List<BuildResultModel> buildResult = await _buildResultService.GetBuilds();
+        latestAutomation1Result = buildResult[0];
+        latestAutomation2Result = buildResult[1];
+        latestAutomation3Result = buildResult[2];
+    }
+
+}
