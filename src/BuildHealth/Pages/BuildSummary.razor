@@ -31,34 +31,46 @@ else
         <th>Automation 3</th>
     </tr>
     <tr>
-        <td>Changelist Cutoff</td>
+        <td><b>Changelist Cutoff</b></td>
         <td>@latestAutomation1Result.ChangelistCutoff</td>
         <td>@latestAutomation2Result.ChangelistCutoff</td>
         <td>@latestAutomation3Result.ChangelistCutoff</td>
     </tr>
     <tr>
-        <td>Result</td>
-        <td>@latestAutomation1Result.Result</td>
-        <td>@latestAutomation2Result.Result</td>
-        <td>@latestAutomation3Result.Result</td>
+        <td><b>Result</b></td>
+        <td>
+            <svg height="100" width="100">
+                <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="@latestAutomation1Result.ResultColor()" />
+            </svg>
+        </td>
+        <td>
+            <svg height="100" width="100">
+                <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="@latestAutomation2Result.ResultColor()" />
+            </svg>
+        </td>
+        <td>
+            <svg height="100" width="100">
+                <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="@latestAutomation3Result.ResultColor()" />
+            </svg>
+        </td>
     </tr>
     <tr>
-        <td>Completed At</td>
+        <td><b>Completed At</b></td>
         <td>@latestAutomation1Result.FinishTime</td>
         <td>@latestAutomation2Result.FinishTime</td>
         <td>@latestAutomation3Result.FinishTime</td>
     </tr>
     <tr>
-        <td>Time Since Completion</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><b>Time Since Completion</b></td>
+        <td>@latestAutomation1Result.TimeSinceCompletion().ToString(timespanFormat)</td>
+        <td>@latestAutomation2Result.TimeSinceCompletion().ToString(timespanFormat)</td>
+        <td>@latestAutomation3Result.TimeSinceCompletion().ToString(timespanFormat)</td>
     </tr>
     <tr>
-        <td>Processing Time</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><b>Processing Time</b></td>
+        <td>@latestAutomation1Result.Duration().ToString(timespanFormat)</td>
+        <td>@latestAutomation2Result.Duration().ToString(timespanFormat)</td>
+        <td>@latestAutomation3Result.Duration().ToString(timespanFormat)</td>
     </tr>
 </table>
 }
@@ -77,5 +89,4 @@ else
         latestAutomation2Result = buildResult[1];
         latestAutomation3Result = buildResult[2];
     }
-
 }
