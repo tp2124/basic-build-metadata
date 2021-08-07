@@ -1,0 +1,60 @@
+﻿@page "/changelists"
+
+@using BuildHealth.Data.Interfaces
+@using BuildHealth.Data.Models
+@using Microsoft.Extensions.Configuration
+
+@inject IDataAccessMySQL _data
+@inject IConfiguration _config
+
+<h3>Changelists</h3>
+
+@if (changelists == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <button class="btn btn-primary" @onclick="InsertData">Insert</button>
+    <button class="btn btn-primary" @onclick="UpdateData">Update</button>
+    <button class="btn btn-primary" @onclick="DeleteData">Delete</button>
+    @foreach (var changelist in changelists)
+    {
+        <p>
+            [@changelist.ChangelistNumber] Author: @changelist.Author Description: @changelist.Description
+        </p>
+    }
+}
+
+
+@code {
+    List<ChangelistModel> changelists;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sqlCommand = "select * from changelists";
+        changelists = await _data.LoadData<ChangelistModel, dynamic>(sqlCommand, new { }, _config.GetConnectionString("default"));
+    }
+
+    private async Task InsertData()
+    {
+        string sqlCommand = "insert into changelists (ChangelistNumber, Author, Description) values (@ChangelistNumber, @Author, @Description)";
+        await _data.SaveData(sqlCommand, new { ChangelistNumber = "24", Author = "tprimm", Description = "Inserting via the website" }, _config.GetConnectionString("default"));
+        await OnInitializedAsync();
+    }
+
+    private async Task UpdateData()
+    {
+        string sqlCommand = "update changelists set Author = @Author, Description = @Description where ChangelistNumber = @ChangelistNumber";
+        await _data.SaveData(sqlCommand, new { ChangelistNumber = "24", Author = "syu", Description = "Like father, like son" }, _config.GetConnectionString("default"));
+        await OnInitializedAsync();
+    }
+
+    private async Task DeleteData()
+    {
+        string sqlCommand = "delete from changelists where ChangelistNumber = @ChangelistNumber";
+        await _data.SaveData(sqlCommand, new { ChangelistNumber = "24" }, _config.GetConnectionString("default"));
+        await OnInitializedAsync();
+    }
+}
